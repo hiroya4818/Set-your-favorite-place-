@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Convenience Store Finder</title>
+    <link rel="stylesheet" href="app.component.css">
+  </head>
+  <p>
+    <mat-toolbar color="primary">
+      <button
+        mat-icon-button
+        aria-label="Example icon button with a menu icon"
+        (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Set your favorite place!</span>
+    </mat-toolbar>
+  </p>
+  <div id="map">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer class="example-sidenav" mode="side">
+        <p>Auto-resizing sidenav</p>
+        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <button
+          class="button-element"
+          color="warn"
+          mat-raised-button>
+          + Item
+        </button>
+        <button
+          class="button-element"
+          (click)="closeDrawerContainer()"
+          mat-raised-button>
+          Close
+        </button>
+      </mat-drawer>
+      <google-map
+        height="600px"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+        [options]="options">
+      </google-map>
+    </mat-drawer-container>
+    <div class="example-sidenav-content">
+    </div>
+  </div>
+</html>
