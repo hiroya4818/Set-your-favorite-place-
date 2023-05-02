@@ -1,0 +1,28 @@
+<mat-drawer #drawer class="example-sidenav" mode="side">
+  <p>Auto-resizing sidenav</p>
+  <li *ngFor="let item of items">
+    <div class="item" style="display: flex; align-items: center;">
+      <img [src]=item.url>
+      {{ item.name }}
+      <div style="text-align: right;">
+        <mat-slide-toggle
+          style="width: 120px;"
+          [(ngModel)]="item.toggled">
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </li>
+  <button
+    mat-raised-button
+    class="button-element"
+    color="warn"
+    (click)="openDialog()">
+    + Item
+  </button>
+  <button
+    class="button-element"
+    (click)="closeDrawerContainer()"
+    mat-raised-button>
+    Close
+  </button>
+</mat-drawer>

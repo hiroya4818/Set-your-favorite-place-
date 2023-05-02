@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>What is your favorite place?</h1>
+
+<form>
+  <mat-form-field>
+    <mat-label>Favorite Place</mat-label>
+    <input matInput placeholder="Enter your favorite place" [formControl]="favoritePlace">
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="confirmSelection()" color="primary">
+    Okays!
+  </button>
+  <button mat-button (click)="dialogRef.close()">
+    Cancel
+  </button>
+</div>

@@ -13,24 +13,3 @@
   justify-content: center;
 }
 
-.example-sidenav {
-  padding: 20px;
-}
-
-.button-element {
-  margin: 7px;
-}
-
-li {
-  list-style: none;
-}
-
-li .item {
-  margin: 7px 0;
-}
-
-li .item img {
-  height: 20px;
-  width: 20px;
-  margin-right: 8px;
-}

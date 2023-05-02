@@ -1,10 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDrawerContainer, MatSidenav } from '@angular/material/sidenav';
-
-interface Message {
-  content: string;
-  isIncoming: boolean;
-}
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +7,7 @@ interface Message {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @ViewChild(MatDrawerContainer) drawerContainer!: MatDrawerContainer;
+  @ViewChild(SideMenuComponent) sideMenu!: SideMenuComponent;
   // @ViewChild('sidenav') sidenav!: MatSidenav;
 
   get visible(): boolean {
@@ -61,19 +56,5 @@ export class AppComponent {
         };
       });
     }
-  }
-
-  openDrawerContainer(): void {
-    this.drawerFlag = true;
-    this.drawerContainer.open();
-  }
-
-  closeDrawerContainer(): void {
-    this.drawerFlag = false;
-    this.drawerContainer.close();
-  }
-
-  onToggleChange(flag: boolean): void {
-    this.currentPositionMarkerOption.visible = flag;
   }
 }
