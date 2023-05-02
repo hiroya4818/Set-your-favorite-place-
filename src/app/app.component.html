@@ -21,6 +21,18 @@
       <mat-drawer #drawer class="example-sidenav" mode="side">
         <p>Auto-resizing sidenav</p>
         <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <li *ngFor="let item of items">
+          <div class="item" style="display: flex; align-items: center;">
+            <img [src]=item.url>
+            {{ item.name }}
+            <div style="text-align: right;">
+              <mat-slide-toggle
+                style="width: 120px;"
+                [(ngModel)]="item.toggled"
+                (change)="onToggleChange(item.toggled)"></mat-slide-toggle>
+            </div>
+          </div>
+        </li>
         <button
           class="button-element"
           color="warn"
@@ -37,9 +49,14 @@
       <google-map
         height="600px"
         width="100%"
-        [center]="center"
+        [center]="currentPosition"
         [zoom]="zoom"
         [options]="options">
+        <map-marker
+          [position]="currentPosition"
+          [options]="currentPositionMarkerOption"
+          [visible]="visible">
+        </map-marker>
       </google-map>
     </mat-drawer-container>
     <div class="example-sidenav-content">

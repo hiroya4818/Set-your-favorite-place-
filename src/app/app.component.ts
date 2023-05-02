@@ -14,6 +14,18 @@ interface Message {
 export class AppComponent {
   @ViewChild(MatDrawerContainer) drawerContainer!: MatDrawerContainer;
   // @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  get visible(): boolean {
+    return this.items[0].toggled;
+  };
+
+  items = [
+    { name: 'Your position', toggled: true, url: "assets/img/position.png"},
+    { name: 'コンビニ', toggled: true, url: "assets/img/position.png"},
+
+  ];
+
+
   drawerFlag = false;
   zoom = 16;
   // 東新宿駅の座標
@@ -27,6 +39,30 @@ export class AppComponent {
   };
   showFiller = false;
 
+  // 現在位置マーカーの座標
+  currentPosition!: google.maps.LatLngLiteral;
+  // 現在位置マーカーのオプション
+  currentPositionMarkerOption: google.maps.MarkerOptions = {
+    icon: {
+      url: "assets/img/position.png",
+      scaledSize: new google.maps.Size(32, 32)
+    },
+  };
+
+  constructor() {}
+
+  ngOnInit() {
+    // 現在位置を取得する。
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.currentPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
+    }
+  }
+
   openDrawerContainer(): void {
     this.drawerFlag = true;
     this.drawerContainer.open();
@@ -37,4 +73,7 @@ export class AppComponent {
     this.drawerContainer.close();
   }
 
+  onToggleChange(flag: boolean): void {
+    this.currentPositionMarkerOption.visible = flag;
+  }
 }

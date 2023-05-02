@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatIconModule,
     MatSortModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     GoogleMapsModule,
   ],
   providers: [],
