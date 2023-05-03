@@ -21,7 +21,7 @@
       <app-side-menu
         [(items)]="items">
       </app-side-menu>
-      <google-map
+      <google-map *ngIf="currentPosition"
         height="600px"
         width="100%"
         [center]="currentPosition"

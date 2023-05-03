@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -8,14 +8,23 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./add-item-dialog.component.css']
 })
 export class AddItemDialogComponent {
-  favoritePlace = new FormControl('');
+  place?: string;
+  selectedOption?: string;
+
+  @Output() formSubmit = new EventEmitter<any>();
 
   constructor(
     public dialogRef: MatDialogRef<AddItemDialogComponent>,
   ) {
   }
 
+  options: any = [
+    {value: 'A', viewValue: 'a'},
+    {value: 'B', viewValue: 'b'},
+
+  ]
+
   confirmSelection() {
-    this.dialogRef.close('OK');
+    this.dialogRef.close({name: this.place, toggled: true, url: this.selectedOption});
   }
 }

@@ -37,6 +37,8 @@ export class SideMenuComponent {
 
     dialogRef.afterClosed()
       .subscribe(result => {
+        this.items.push(result);
+        this.itemsChange.emit(this.items);
         console.log(result);
     });
   }

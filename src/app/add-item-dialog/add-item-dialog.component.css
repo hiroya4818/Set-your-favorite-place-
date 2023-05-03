@@ -1,8 +1,26 @@
 .example-container {
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
 }
 
-.example-container > * {
-  width: 100%;
+h1 {
+  text-align: center;
+}
+
+.form-fields-container {
+  display: flex;
+}
+
+.form-fields-container > .place {
+  width: 70%;
+}
+
+.form-fields-container > .icon {
+  margin-left: 20px;
+  width: 20%;
+}
+
+.actions {
+  justify-content: flex-end;
 }
