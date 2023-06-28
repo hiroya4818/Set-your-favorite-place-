@@ -32,6 +32,12 @@
           [options]="currentPositionMarkerOption"
           [visible]="visible">
         </map-marker>
+        <map-marker
+          *ngFor="let place of searchPlaces"
+          [position]="place.position"
+          [options]="place.option"
+          [visible]="place.visible">
+        </map-marker>
       </google-map>
     </mat-drawer-container>
     <div class="example-sidenav-content">
