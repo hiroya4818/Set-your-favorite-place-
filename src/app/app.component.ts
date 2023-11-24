@@ -12,6 +12,10 @@ import { Place } from './place';
 export class AppComponent implements OnChanges,OnInit {
   @ViewChild(SideMenuComponent) sideMenu!: SideMenuComponent;
   placesService!: google.maps.places.PlacesService;
+  makerPositions: {
+    positions: google.maps.LatLngLiteral,
+    options: google.maps.MarkerOptions,
+  }[] = [];
 
   get visible(): boolean {
     return this.items[0].toggled;
@@ -63,6 +67,11 @@ export class AppComponent implements OnChanges,OnInit {
     }
   }
 
+  a(): void{
+    console.log(this.items);
+    this.search(this.items[1].name)
+  }
+
   loadPlacesLibrary() {
     // Google Maps Placesライブラリを非同期で読み込みます
     const script = document.createElement('script');
@@ -77,36 +86,63 @@ export class AppComponent implements OnChanges,OnInit {
 
   search(keyword: string) :void{
     if(!this.placesLibraryLoaded) {
-      setTimeout(this.search, 100);;
+      setTimeout(this.search, 100);
     } else {
-      const request = {
-        query: keyword, // 東京のコーヒーショップを検索するキーワード
-        fields: ['name', 'geometry', 'formatted_address', 'rating'] // 名前、位置情報、住所、評価のフィールドを取得
+      // 検索範囲を指定
+      const bounds = new google.maps.Circle({
+        center: this.currentPosition,
+        radius: 500 // 5 km radius
+      }).getBounds();
+      console.log(this.currentPosition)
+      const request: google.maps.places.TextSearchRequest = {
+        query: keyword,
+        location: this.currentPosition,
+        radius: 500,
+        // fields: ['name', 'geometry', 'formatted_address', 'rating'] // 名前、位置情報、住所、評価のフィールドを取得
       };
       const service = new google.maps.places.PlacesService(document.createElement('div'));
 
       service.textSearch(request, (results, status) => {
+        console.log('Results:', results);
+        console.log('Status:', status);
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          results?.map((result, index) => {
-            if(index > 3) return;
-            this.searchPlaces[index] = {
-              position: {
+          // results?.map((result, index) => {
+          //   if(index > 3) return;
+            // this.searchPlaces[index] = {
+            //   position: {
+            //     lat: result.geometry!.location!.lat(),
+            //     lng: result.geometry!.location!.lng(),
+            //   },
+            //   option: {
+            //     icon: {
+            //       url: "assets/img/bird.png",
+            //       scaledSize: new google.maps.Size(32, 32)
+            //     },
+            //   },
+            //   visible: true,
+            // };
+          // })
+          results?.forEach((result) => {
+            console.log()
+            this.makerPositions?.push({
+              positions: {
                 lat: result.geometry!.location!.lat(),
-                lng: result.geometry!.location!.lng(),
+                lng: result.geometry!.location!.lng()
               },
-              option: {
+              options: {
                 icon: {
                   url: "assets/img/bird.png",
                   scaledSize: new google.maps.Size(32, 32)
                 },
-              },
-              visible: true,
-            };
+              }
+            })
+            console.log(this.makerPositions)
           })
           console.log(results);
         } else {
           console.error('検索に失敗しました。');
         }
+
       });
     }
   }

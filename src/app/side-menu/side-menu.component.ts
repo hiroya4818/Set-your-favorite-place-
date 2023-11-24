@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AddItemDialogComponent } from '../add-item-dialog/add-item-dialog.component';
+import { Item } from '../item';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { AddItemDialogComponent } from '../add-item-dialog/add-item-dialog.compo
 })
 export class SideMenuComponent {
   @ViewChild(MatDrawer) drawer!: MatDrawer;
-  @Input() items: any;
+  @Input() items!: Item[];
   @Output() itemsChange = new EventEmitter<any>();
 
   constructor(
@@ -38,7 +39,8 @@ export class SideMenuComponent {
     dialogRef.afterClosed()
       .subscribe(result => {
         if(!result) return;
-        this.items.push(result);
+        // this.items.push(result);
+        this.items = [...this.items,result as Item];
         this.itemsChange.emit(this.items);
         console.log(result);
     });
