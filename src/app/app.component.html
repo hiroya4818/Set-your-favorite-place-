@@ -19,7 +19,8 @@
   <div id="map">
     <mat-drawer-container class="example-container" autosize>
       <app-side-menu
-        [(items)]="items">
+        [(items)]="items"
+        (itemsChange)="a()">
       </app-side-menu>
       <google-map *ngIf="currentPosition"
         height="600px"
@@ -32,12 +33,15 @@
           [options]="currentPositionMarkerOption"
           [visible]="visible">
         </map-marker>
-        <map-marker
-          *ngFor="let place of searchPlaces"
-          [position]="place.position"
-          [options]="place.option"
-          [visible]="place.visible">
-        </map-marker>
+        <ng-container *ngIf="makerPositions">
+          <map-marker
+            *ngFor="let position of makerPositions"
+            [position]="position.positions"
+            [options]="position.options"
+            [visible]="visible">
+          </map-marker>
+        </ng-container>
+
       </google-map>
     </mat-drawer-container>
     <div class="example-sidenav-content">
